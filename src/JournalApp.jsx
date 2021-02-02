@@ -1,5 +1,7 @@
+import AppRouter from './routers/AppRouter';
+
 const JournalApp = () => {
-  return <div>Journal App</div>;
+  return <AppRouter />;
 };
 
 export default JournalApp;
