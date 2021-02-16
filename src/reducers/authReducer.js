@@ -1,11 +1,11 @@
 import { types } from '../types/types';
 
 const authReducer = (state = {}, action) => {
-  switch (action) {
+  switch (action.type) {
     case types.login:
       return {
         uid: action.payload.uid,
-        name: action.payload.dsiplayName,
+        name: action.payload.displayName,
       };
 
     case types.logout:
