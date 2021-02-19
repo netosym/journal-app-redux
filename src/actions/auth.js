@@ -1,11 +1,22 @@
 import { types } from '../types/types';
+import { startLogin, finishLogin } from './ui';
 import { firebase, googleAuthProvider } from '../firebase/firebaseConfig';
 
 export const startLoginEmail = (email, password) => {
   return (dispatch) => {
-    setTimeout(() => {
-      dispatch(login(132, 'Ernesto'));
-    }, 2000);
+    dispatch(startLogin());
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(({ user }) => {
+        dispatch(login(user.uid, user.displayName));
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        dispatch(finishLogin());
+      });
   };
 };
 
@@ -16,6 +27,23 @@ export const startGoogleLogin = () => {
       .signInWithPopup(googleAuthProvider)
       .then(({ user }) => {
         dispatch(login(user.uid, user.displayName));
+      });
+  };
+};
+
+export const startWithEmailPassword = (email, password, name) => {
+  return (dispatch) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then(async ({ user }) => {
+        await user.updateProfile({
+          displayName: name,
+        });
+        dispatch(login(user.uid, name));
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 };

@@ -12,3 +12,15 @@ export const removeError = (error) => {
     type: types.uiRemoveError,
   };
 };
+
+export const startLogin = () => {
+  return {
+    type: types.uiStartLogin,
+  };
+};
+
+export const finishLogin = () => {
+  return {
+    type: types.uiFinishLogin,
+  };
+};

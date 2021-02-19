@@ -24,7 +24,7 @@
   }
 
   &:disabled {
-    background-color: lighten($color: $primary, $amount: 15);
+    background-color: black;
   }
 }
 
