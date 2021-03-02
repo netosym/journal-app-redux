@@ -1,17 +1,13 @@
 import { useEffect, useState } from 'react';
 import { firebase } from '../firebase/firebaseConfig';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
 import JournalScreen from '../components/journal/JournalScreen';
 import AuthRouter from './AuthRouter';
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import { startLoadingNotes } from '../actions/notes';
 
 const AppRouter = () => {
   const dispatch = useDispatch();
@@ -23,6 +19,7 @@ const AppRouter = () => {
       if (user?.uid) {
         dispatch(login(user.uid, user.displayName));
         setIsLogged(true);
+        dispatch(startLoadingNotes(user.uid));
       } else {
         setIsLogged(false);
       }
