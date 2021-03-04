@@ -2,12 +2,12 @@ import moment from 'moment';
 import { useDispatch } from 'react-redux';
 import { activateNote } from '../../actions/notes';
 
-const JournalEntry = ({ id, date, title, body, url, image }) => {
+const JournalEntry = ({ id, date, title, body, url }) => {
   const dispatch = useDispatch();
   const noteDate = moment(date);
 
   const handleSelect = () => {
-    dispatch(activateNote(id, { body, date, title, url, image }));
+    dispatch(activateNote(id, { body, date, title, url }));
   };
 
   return (
