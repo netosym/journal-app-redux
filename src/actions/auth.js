@@ -2,6 +2,7 @@ import { types } from '../types/types';
 import { startLogin, finishLogin } from './ui';
 import { firebase, googleAuthProvider } from '../firebase/firebaseConfig';
 import Swal from 'sweetalert2';
+import { noteLogout } from './notes';
 
 export const startLoginEmail = (email, password) => {
   return (dispatch) => {
@@ -71,6 +72,7 @@ export const startLogout = () => {
   return async (dispatch) => {
     await firebase.auth().signOut();
     dispatch(logout());
+    dispatch(noteLogout());
   };
 };
 
